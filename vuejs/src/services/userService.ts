@@ -15,60 +15,59 @@ export const userService = {
         }
         // caso consiga retorna um json com a lista de parametros do objeto
         return response.json();
-    }
-}
+    },
 
-//CREATE
-async function createUser(userPayload: UserPayload): Promise<User> {
+    //CREATE
     //chama a rota do backend para criar um novo usuario, passando os dados do usuario como payload
-    const response = await fetch(API_URL, {
-        //metodo da rtoa como post
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        //converte o payload do usuario para json e envia no corpo da requisicao
-        body: JSON.stringify(userPayload)
-    });
-    //se nao conseguir criar o usuario, retorna um erro
-    if (!response.ok) {
-        throw new Error("Failed to create user");
-    }
-    //caso consiga, retorna o usuario criado como json
-    return response.json();
-}
+    async createUser(userPayload: UserPayload): Promise<User> {
+        const response = await fetch(API_URL, {
+            //metodo da rtoa como post
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            //converte o payload do usuario para json e envia no corpo da requisicao
+            body: JSON.stringify(userPayload)
+        });
+        //se nao conseguir criar o usuario, retorna um erro
+        if (!response.ok) {
+            throw new Error("Failed to create user");
+        }
+        //caso consiga, retorna o usuario criado como json
+        return response.json();
+    },
 
-//UPDATE
-async function updateUser(id: number, userPayload: UserPayload): Promise<User> {
+    //UPDATE
     //chama a rota do backend para atualizar um usuario existente, passando o id do usuario e os dados atualizados como payload
-    const response = await fetch(`${API_URL}/${id}`, {
-        //metodo da rtoa como put
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        //converte o payload do usuario para json e envia no corpo da requisicao
-        body: JSON.stringify(userPayload)
-    });
-    //se nao conseguir atualizar o usuario, retorna um erro
-    if (!response.ok) {
-        throw new Error("Failed to update user");
-    }
-    //caso consiga, retorna o usuario atualizado como json
-    return response.json();
-}
+    async updateUser(id: number, userPayload: UserPayload): Promise<User> {
+        const response = await fetch(`${API_URL}/${id}`, {
+            //metodo da rtoa como put
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            //converte o payload do usuario para json e envia no corpo da requisicao
+            body: JSON.stringify(userPayload)
+        });
+        //se nao conseguir atualizar o usuario, retorna um erro
+        if (!response.ok) {
+            throw new Error("Failed to update user");
+        }
+        //caso consiga, retorna o usuario atualizado como json
+        return response.json();
+    },
 
-
-//REMOVE
-async function deleteUser(id: number): Promise<void> {
+    //REMOVE
     //chama a rota do backend para deletar um usuario existente, passando o id do usuario
-    const response = await fetch(`${API_URL}/${id}`, {
-        //metodo da rtoa como delete
-        method: "DELETE"
-    });
-    //se nao conseguir deletar o usuario, retorna um erro
-    if (!response.ok) {
-        throw new Error("Failed to delete user");
+    async deleteUser(id: number): Promise<void> {
+        const response = await fetch(`${API_URL}/${id}`, {
+            //metodo da rtoa como delete
+            method: "DELETE"
+        });
+        //se nao conseguir deletar o usuario, retorna um erro
+        if (!response.ok) {
+            throw new Error("Failed to delete user");
+        }
+        //caso consiga, nao retorna nada (void)
     }
-    //caso consiga, nao retorna nada (void)
 }
