@@ -2,6 +2,9 @@
 #o decorator é usado para adicionar funcionalidades a uma funcao sem modificar o codigo da funcao original
 #exemplo: o decorator tem um try catch da rota do banco, e ao inves de voce fazer um novo try catch em cada funcao, voce pode usar o decorator para adicionar essa funcionalidade a todas as funcoes que precisam acessar o banco
 
+from fastapi import requests
+
+
 def decorator(func):
     # um wrapper é uma funcao que envolve a funcao original e adiciona funcionalidades a ela
     def wrapper(*args, **kwargs):

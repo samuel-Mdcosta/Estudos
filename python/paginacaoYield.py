@@ -1,12 +1,17 @@
 #um generator yield e uma funcao que se parece com uma fila, onde vai sendo executado conforme cioloca nela
 #o yield executa uma acao por vez no modo lazy, so executa quando necessario ou quando pedido com next()
 
+import httpx
+
+
 async def buscar1miusuarios(base_url: str):
     pagina = 1 
     while True:
         async with httpx.AsyncClient() as client:
             #define o limite de usuarios por pagina
-            response = await client.get(f"{base_url}/usuarios", params={"pagina": pagina, limite: 100})
+            #await pausa a execucao da requicoao ate que a resposta seja recebida, evitando bloqueio do programa
+            response = await client.get(f"{base_url}/usuarios", params={"pagina": pagina, "limite": 100})
+            #quando a resposta for recebida, o programa continua a execucao e os dados sao processados
             dados = response.json()
 
             #se a resposta tiver itens, entao retorna os itens, senao, para o loop
@@ -20,5 +25,5 @@ async def buscar1miusuarios(base_url: str):
 
             if not dados["tem_proxima_pagina"]:
                 break
-            
+
             pagina += 1
