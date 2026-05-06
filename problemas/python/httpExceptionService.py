@@ -17,3 +17,4 @@ class DocumentoService:
 #a camada de service ela deve ser especifica para regra de negocio
 #ela nao sabe sobre http, porem ela deveser capaz de lidar com erros, assim ela lanca esse erro para o arquivo handler
 #pois cada camada deve saber apenas sobre sua reponsabilidade
+#mesmo o service nao sendo responsavel por lidar com execessoe sele deve interromper o fluxo quando algo da errado
