@@ -1,0 +1,32 @@
+#codigo errado
+FROM python:3.11-slim
+
+COPY . .
+RUN pip install -r requirements.txt
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
+
+#codigo certo
+FROM python:3.11-slim
+
+COPY . .
+RUN pip install -r requirements.txt
+
+RUN groupadd ... && useradd ...
+RUN chown -R ... 
+USER <nome-do-usuario>
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
+
+# POR QUE E UM PROBLEMA:
+# Sem um USER definido, o Docker roda o processo como root por padrao.
+# Root dentro do container tem uid 0, o mesmo root do host em kernels sem isolamento total.
+# Se a aplicacao tiver uma vulnerabilidade (ex: RCE), o atacante assume o container com
+# permissao maxima — pode ler qualquer arquivo, matar processos, e em configuracoes
+# mal feitas pode escapar do container e afetar o host.
+
+# POR QUE A SOLUCAO FUNCIONA:
+# Criar um usuario sem privilegios e trocar para ele com USER limita o blast radius.
+# O processo da aplicacao so enxerga o que o appuser tem permissao de acessar.
+# Mesmo que a aplicacao seja comprometida, o atacante fica preso em uma identidade
+# com permissoes minimas, sem acesso ao restante do sistema.

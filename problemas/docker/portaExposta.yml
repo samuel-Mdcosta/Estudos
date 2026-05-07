@@ -1,0 +1,35 @@
+#codigo errado
+services:
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: senha123
+
+#codigo certo
+services:
+  api:
+    build: .
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: senha123
+
+# POR QUE E UM PROBLEMA:
+# O "ports: 5432:5432" mapeia a porta do container para o host, tornando o Postgres
+# acessivel em qualquer interface de rede da maquina — incluindo a internet, se o host
+# estiver exposto. Qualquer pessoa que alcance o IP do host pode tentar se conectar
+# diretamente ao banco, sem passar pela API. Isso abre brecha para ataques de forca
+# bruta, exfiltracao de dados e exploracao de vulnerabilidades do Postgres.
+
+# POR QUE A SOLUCAO FUNCIONA:
+# Sem o "ports", o Postgres fica acessivel apenas dentro da rede interna do Docker.
+# Os outros servicos do compose (como a api) ainda conseguem se conectar usando o
+# nome do servico como hostname (ex: postgres:5432), pois o Docker cria uma rede
+# privada automatica entre os servicos. O banco some da perspectiva externa —
+# nenhuma porta e aberta no host.
+#a senha do postgrees vai ficar dentro do env, aqui e para fim de teste
