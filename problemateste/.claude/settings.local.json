@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python \"c:\\\\Users\\\\pc\\\\Desktop\\\\ARQUIVOS PROGRAMAÇÃO\\\\Estudos\\\\problemateste\\\\logica\\\\relatorioCliente.py\")",
+      "Bash(python \"c:\\\\Users\\\\pc\\\\Desktop\\\\ARQUIVOS PROGRAMAÇÃO\\\\Estudos\\\\problemateste\\\\logica\\\\frequenciaCaracteres.py\")",
+      "Bash(python \"c:\\\\Users\\\\pc\\\\Desktop\\\\ARQUIVOS PROGRAMAÇÃO\\\\Estudos\\\\problemateste\\\\logica\\\\windowFunciton.py\")"
+    ]
+  }
+}
