@@ -22,3 +22,13 @@ if __name__ == "__main__":
     assert two_sum([-1, -2, -3, -4], -6) == [1, 3] # negativos
 
     print("Todos os testes passaram.")
+
+    # ---------------------------------------------------------------------------
+    # Modo interativo
+    # ---------------------------------------------------------------------------
+    raw = input("\nArray (ex: 2 7 11 15): ")
+    nums = list(map(int, raw.split()))
+    target = int(input("Target: "))
+
+    result = two_sum(nums, target)
+    print(f"Posições: {result}  →  valores: {nums[result[0]]} + {nums[result[1]]} = {target}")
